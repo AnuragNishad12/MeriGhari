@@ -7,13 +7,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.merighari.Adapter.AlarmAdapter
+import com.example.merighari.Model.AlarmModel
 import com.example.merighari.R
 import com.example.merighari.databinding.ActivitySetAlarmBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class SetAlarmActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySetAlarmBinding;
+    private lateinit var binding: ActivitySetAlarmBinding
+    private lateinit var alarmAdapter: AlarmAdapter
+    private val alarmList = mutableListOf<AlarmModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,35 +26,19 @@ class SetAlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val btnShowPicker: ImageView = findViewById(R.id.btnShowPicker)
-        btnShowPicker.setOnClickListener {
+
+        alarmAdapter = AlarmAdapter(alarmList)
+        binding.recyclerViewAlarms.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewAlarms.adapter = alarmAdapter
+
+
+        binding.btnShowPicker.setOnClickListener {
             showTimePickerDialog(this) { hour, minute, amPm ->
-                Toast.makeText(this, "Selected Time: $hour:$minute $amPm", Toast.LENGTH_SHORT).show()
+                val newAlarm = AlarmModel(hour, minute, amPm)
+                alarmAdapter.addAlarm(newAlarm)
+                Toast.makeText(this, "Alarm Set: $hour:$minute $amPm", Toast.LENGTH_SHORT).show()
             }
         }
-
-//        val numberPickerHour: NumberPicker = findViewById(R.id.numberPickerHour)
-//        val numberPickerMinute: NumberPicker = findViewById(R.id.numberPickerMinute)
-//        val numberPickerAmPm: NumberPicker = findViewById(R.id.numberPickerAmPm)
-
-//// Set values for Hour Picker (1-12)
-//        numberPickerHour.minValue = 1
-//        numberPickerHour.maxValue = 12
-//        numberPickerHour.wrapSelectorWheel = false // Prevent looping
-//
-//// Set values for Minute Picker (0-59)
-//        numberPickerMinute.minValue = 0
-//        numberPickerMinute.maxValue = 59
-//        numberPickerMinute.wrapSelectorWheel = false // Prevent looping
-//
-//// Set values for AM/PM Picker
-//        numberPickerAmPm.minValue = 0
-//        numberPickerAmPm.maxValue = 1
-//        numberPickerAmPm.displayedValues = arrayOf("AM", "PM")
-//        numberPickerAmPm.wrapSelectorWheel = false // Prevent looping
-
-
-
     }
 
     private fun showTimePickerDialog(context: Context, onTimeSelected: (Int, Int, String) -> Unit) {
@@ -64,16 +53,13 @@ class SetAlarmActivity : AppCompatActivity() {
         // Setup Number Pickers
         numberPickerHour.minValue = 1
         numberPickerHour.maxValue = 12
-        numberPickerHour.wrapSelectorWheel = true
 
         numberPickerMinute.minValue = 0
         numberPickerMinute.maxValue = 59
-        numberPickerMinute.wrapSelectorWheel = true
 
         numberPickerAmPm.minValue = 0
         numberPickerAmPm.maxValue = 1
         numberPickerAmPm.displayedValues = arrayOf("AM", "PM")
-        numberPickerAmPm.wrapSelectorWheel = true
 
         btnSetTime.setOnClickListener {
             val selectedHour = numberPickerHour.value
