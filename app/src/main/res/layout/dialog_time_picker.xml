@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/dialog_view_background"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:elevation="8dp"
+    android:gravity="center">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Time"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:paddingBottom="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp">
+
+        <NumberPicker
+            android:id="@+id/numberPickerHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:padding="8dp"
+            android:textStyle="bold" />
+
+        <NumberPicker
+            android:id="@+id/numberPickerMinute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants" />
+
+        <NumberPicker
+            android:id="@+id/numberPickerAmPm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants" />
+    </LinearLayout>
+
+    <!-- Set Time Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSetTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Time"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/purple"
+        app:cornerRadius="16dp"
+        android:textColor="@color/white"
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp"
+        android:paddingVertical="10dp"
+        android:elevation="4dp" />
+</LinearLayout>
