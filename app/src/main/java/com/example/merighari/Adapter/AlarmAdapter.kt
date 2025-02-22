@@ -12,7 +12,7 @@ import com.example.merighari.R
 class AlarmAdapter(private val alarmList: MutableList<AlarmModel>) : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
     class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewTime: TextView = itemView.findViewById(R.id.textViewTime)
+        val alarmTime: TextView = itemView.findViewById(R.id.alarmTime)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
@@ -22,14 +22,23 @@ class AlarmAdapter(private val alarmList: MutableList<AlarmModel>) : RecyclerVie
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
         val alarm = alarmList[position]
-        holder.textViewTime.text = "${alarm.hour}:${String.format("%02d", alarm.minute)} ${alarm.amPm}"
-
+        holder.alarmTime.text = "${alarm.hour}:${String.format("%02d", alarm.minute)} ${alarm.amPm}"
     }
 
-    override fun getItemCount(): Int = alarmList.size
+    override fun getItemCount(): Int {
+        return alarmList.size
+    }
 
+    // Add new alarms
     fun addAlarm(alarm: AlarmModel) {
         alarmList.add(alarm)
-        notifyItemInserted(alarmList.size - 1)
+        notifyDataSetChanged()
+    }
+
+    // Update the entire list
+    fun setAlarms(alarms: List<AlarmModel>) {
+        alarmList.clear()
+        alarmList.addAll(alarms)
+        notifyDataSetChanged()
     }
 }
