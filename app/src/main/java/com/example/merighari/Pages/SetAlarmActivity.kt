@@ -9,10 +9,16 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.merighari.Adapter.AlarmAdapter
+import com.example.merighari.Model.AlarmEntity
 import com.example.merighari.Model.AlarmModel
+import com.example.merighari.Model.AppDatabase
 import com.example.merighari.R
 import com.example.merighari.databinding.ActivitySetAlarmBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SetAlarmActivity : AppCompatActivity() {
 
@@ -26,17 +32,18 @@ class SetAlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-
+        // Initialize RecyclerView and Adapter
         alarmAdapter = AlarmAdapter(alarmList)
-        binding.recyclerViewAlarms.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewAlarms.adapter = alarmAdapter
+        binding.recyclerView.adapter = alarmAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
+        // Load existing alarms from Room database
+        loadAlarms()
 
+        // Set click listener to show time picker
         binding.btnShowPicker.setOnClickListener {
             showTimePickerDialog(this) { hour, minute, amPm ->
-                val newAlarm = AlarmModel(hour, minute, amPm)
-                alarmAdapter.addAlarm(newAlarm)
-                Toast.makeText(this, "Alarm Set: $hour:$minute $amPm", Toast.LENGTH_SHORT).show()
+                saveAlarmToDatabase(hour, minute, amPm)
             }
         }
     }
@@ -50,7 +57,7 @@ class SetAlarmActivity : AppCompatActivity() {
         val numberPickerAmPm: NumberPicker = dialog.findViewById(R.id.numberPickerAmPm)!!
         val btnSetTime: Button = dialog.findViewById(R.id.btnSetTime)!!
 
-        // Setup Number Pickers
+        // Set ranges for pickers
         numberPickerHour.minValue = 1
         numberPickerHour.maxValue = 12
 
@@ -61,6 +68,7 @@ class SetAlarmActivity : AppCompatActivity() {
         numberPickerAmPm.maxValue = 1
         numberPickerAmPm.displayedValues = arrayOf("AM", "PM")
 
+        // Save the selected time
         btnSetTime.setOnClickListener {
             val selectedHour = numberPickerHour.value
             val selectedMinute = numberPickerMinute.value
@@ -72,4 +80,30 @@ class SetAlarmActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+    private fun saveAlarmToDatabase(hour: Int, minute: Int, amPm: String) {
+        val db = AppDatabase.getDatabase(this)
+        val alarmDao = db.alarmDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val newAlarm = AlarmEntity(hour = hour, minute = minute, amPm = amPm)
+            alarmDao.insertAlarm(newAlarm)
+
+            // Reload alarms from database to update the RecyclerView
+            loadAlarms()
+        }
+    }
+
+    private fun loadAlarms() {
+        val db = AppDatabase.getDatabase(this)
+        val alarmDao = db.alarmDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val alarms = alarmDao.getAllAlarms()
+            withContext(Dispatchers.Main) {
+                alarmAdapter.setAlarms(alarms.map { AlarmModel(it.hour, it.minute, it.amPm) })
+            }
+        }
+    }
 }
+
