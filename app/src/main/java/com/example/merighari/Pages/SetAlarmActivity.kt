@@ -1,12 +1,14 @@
 package com.example.merighari.Pages
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.merighari.Adapter.AlarmAdapter
 import com.example.merighari.Model.AlarmEntity
@@ -64,11 +66,6 @@ class SetAlarmActivity : AppCompatActivity() {
         numberPickerMinute.minValue = 0
         numberPickerMinute.maxValue = 59
 
-        numberPickerAmPm.minValue = 0
-        numberPickerAmPm.maxValue = 1
-        numberPickerAmPm.displayedValues = arrayOf("AM", "PM")
-
-        // Save the selected time
         btnSetTime.setOnClickListener {
             val selectedHour = numberPickerHour.value
             val selectedMinute = numberPickerMinute.value
@@ -88,8 +85,6 @@ class SetAlarmActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val newAlarm = AlarmEntity(hour = hour, minute = minute, amPm = amPm)
             alarmDao.insertAlarm(newAlarm)
-
-            // Reload alarms from database to update the RecyclerView
             loadAlarms()
         }
     }
