@@ -34,7 +34,7 @@
             android:fontFamily="@font/archivo_black"
             android:text="Delhi"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="10sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
