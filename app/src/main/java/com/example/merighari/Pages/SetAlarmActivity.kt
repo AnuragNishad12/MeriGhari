@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.merighari.Adapter.AlarmAdapter
+import com.example.merighari.Model.AlarmDao
 import com.example.merighari.Model.AlarmEntity
 import com.example.merighari.Model.AlarmModel
 import com.example.merighari.Model.AppDatabase
@@ -27,6 +28,7 @@ class SetAlarmActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySetAlarmBinding
     private lateinit var alarmAdapter: AlarmAdapter
     private val alarmList = mutableListOf<AlarmModel>()
+    private lateinit var alarmDao: AlarmDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +36,19 @@ class SetAlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        // Initialize RecyclerView and Adapter
-        alarmAdapter = AlarmAdapter(alarmList)
+        val db = AppDatabase.getDatabase(this)
+        alarmDao = db.alarmDao()
+
+        // Initialize adapter with delete logic
+        alarmAdapter = AlarmAdapter(alarmList) { alarm ->
+            deleteAlarm(alarm)
+        }
+
         binding.recyclerView.adapter = alarmAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Load existing alarms from Room database
         loadAlarms()
 
-        // Set click listener to show time picker
         binding.btnShowPicker.setOnClickListener {
             showTimePickerDialog(this) { hour, minute, amPm ->
                 saveAlarmToDatabase(hour, minute, amPm)
@@ -59,10 +65,8 @@ class SetAlarmActivity : AppCompatActivity() {
         val numberPickerAmPm: NumberPicker = dialog.findViewById(R.id.numberPickerAmPm)!!
         val btnSetTime: Button = dialog.findViewById(R.id.btnSetTime)!!
 
-        // Set ranges for pickers
         numberPickerHour.minValue = 1
         numberPickerHour.maxValue = 12
-
         numberPickerMinute.minValue = 0
         numberPickerMinute.maxValue = 59
 
@@ -79,9 +83,6 @@ class SetAlarmActivity : AppCompatActivity() {
     }
 
     private fun saveAlarmToDatabase(hour: Int, minute: Int, amPm: String) {
-        val db = AppDatabase.getDatabase(this)
-        val alarmDao = db.alarmDao()
-
         CoroutineScope(Dispatchers.IO).launch {
             val newAlarm = AlarmEntity(hour = hour, minute = minute, amPm = amPm)
             alarmDao.insertAlarm(newAlarm)
@@ -90,15 +91,23 @@ class SetAlarmActivity : AppCompatActivity() {
     }
 
     private fun loadAlarms() {
-        val db = AppDatabase.getDatabase(this)
-        val alarmDao = db.alarmDao()
-
         CoroutineScope(Dispatchers.IO).launch {
             val alarms = alarmDao.getAllAlarms()
             withContext(Dispatchers.Main) {
-                alarmAdapter.setAlarms(alarms.map { AlarmModel(it.hour, it.minute, it.amPm) })
+                alarmAdapter.setAlarms(alarms.map { AlarmModel(it.id, it.hour, it.minute, it.amPm) })
+            }
+        }
+    }
+
+    private fun deleteAlarm(alarm: AlarmModel) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val alarmEntity = AlarmEntity(alarm.id, alarm.hour, alarm.minute, alarm.amPm)
+            alarmDao.deleteAlarm(alarmEntity)
+            withContext(Dispatchers.Main) {
+                alarmAdapter.removeAlarm(alarm)
             }
         }
     }
 }
+
 
