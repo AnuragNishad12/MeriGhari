@@ -7,9 +7,12 @@ interface AlarmDao {
     @Insert
     suspend fun insertAlarm(alarm: AlarmEntity)
 
-    @Query("SELECT * FROM alarms")
-    suspend fun getAllAlarms(): List<AlarmEntity>
-
     @Delete
     suspend fun deleteAlarm(alarm: AlarmEntity)
+
+    @Query("SELECT * FROM alarms ORDER BY id DESC LIMIT 1")
+    suspend fun getLatestAlarm(): AlarmEntity?
+
+    @Query("SELECT COUNT(*) FROM alarms")
+    suspend fun getAlarmCount(): Int
 }
