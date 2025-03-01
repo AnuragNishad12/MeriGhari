@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "671457508617",
+    "firebase_url": "https://mychatapp-6ac53-default-rtdb.firebaseio.com",
+    "project_id": "mychatapp-6ac53",
+    "storage_bucket": "mychatapp-6ac53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671457508617:android:a8f103871b241b8c9167d8",
+        "android_client_info": {
+          "package_name": "com.example.farmpur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb20W4jwIYjZNde5dDoOaSV4IYiBiznq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671457508617:android:a3a66670e40d0f129167d8",
+        "android_client_info": {
+          "package_name": "com.example.juttela"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb20W4jwIYjZNde5dDoOaSV4IYiBiznq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671457508617:android:f553b8861520efdf9167d8",
+        "android_client_info": {
+          "package_name": "com.example.merighari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb20W4jwIYjZNde5dDoOaSV4IYiBiznq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671457508617:android:b9bda9d957064f459167d8",
+        "android_client_info": {
+          "package_name": "com.example.mykotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb20W4jwIYjZNde5dDoOaSV4IYiBiznq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671457508617-j3vnbanmk2uh451fidi2iog0tqnt60p5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

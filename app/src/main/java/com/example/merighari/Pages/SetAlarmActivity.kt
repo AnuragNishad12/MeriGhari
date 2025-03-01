@@ -1,20 +1,16 @@
 package com.example.merighari.Pages
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.merighari.Adapter.AlarmAdapter
 import com.example.merighari.Model.AlarmDao
-import com.example.merighari.Model.AlarmEntity
+import com.example.merighari.Model.AlarmDatabase
 import com.example.merighari.Model.AlarmModel
-import com.example.merighari.Model.AppDatabase
 import com.example.merighari.R
 import com.example.merighari.databinding.ActivitySetAlarmBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -36,7 +32,7 @@ class SetAlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val db = AppDatabase.getDatabase(this)
+        val db = AlarmDatabase.getDatabase(this)
         alarmDao = db.alarmDao()
 
         binding.btnShowPicker.setOnClickListener {
@@ -45,7 +41,6 @@ class SetAlarmActivity : AppCompatActivity() {
             }
         }
 
-        // Load the latest alarm when activity starts
         loadLatestAlarm()
     }
 
@@ -64,13 +59,13 @@ class SetAlarmActivity : AppCompatActivity() {
         val numberPickerMinute: NumberPicker = dialog.findViewById(R.id.numberPickerMinute)!!
         val numberPickerAmPm: NumberPicker = dialog.findViewById(R.id.numberPickerAmPm)!!
         val btnSetTime: Button = dialog.findViewById(R.id.btnSetTime)!!
+        val tvAlarmDay: TextView = dialog.findViewById(R.id.tvAlarmDay) ?: TextView(context) // Fallback if not in layout
 
         numberPickerHour.minValue = 1
         numberPickerHour.maxValue = 12
         numberPickerMinute.minValue = 0
         numberPickerMinute.maxValue = 59
 
-        // Set up AM/PM picker - this is what was missing
         numberPickerAmPm.minValue = 0
         numberPickerAmPm.maxValue = 1
         numberPickerAmPm.displayedValues = arrayOf("AM", "PM")
@@ -89,7 +84,7 @@ class SetAlarmActivity : AppCompatActivity() {
 
     private fun saveAlarmToDatabase(hour: Int, minute: Int, amPm: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val newAlarm = AlarmEntity(hour = hour, minute = minute, amPm = amPm)
+            val newAlarm = AlarmModel(hour = hour, minute = minute, amPm = amPm)
             alarmDao.insertAlarm(newAlarm)
 
             withContext(Dispatchers.Main) {
@@ -111,7 +106,6 @@ class SetAlarmActivity : AppCompatActivity() {
                     binding.cardAlarm.visibility = View.GONE
                     binding.tvTimeUntilAlarm.visibility = View.GONE
 
-                    // Cancel existing timer if any
                     if (isTimerRunning) {
                         countdownTimer.cancel()
                         isTimerRunning = false
@@ -121,33 +115,24 @@ class SetAlarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayAlarm(alarm: AlarmEntity) {
-        // Make the alarm card visible
+    private fun displayAlarm(alarm: AlarmModel) {
         binding.tvNoAlarm.visibility = View.GONE
         binding.cardAlarm.visibility = View.VISIBLE
         binding.tvTimeUntilAlarm.visibility = View.VISIBLE
 
-        // Format the time with leading zeros for minutes
         val minuteStr = if (alarm.minute < 10) "0${alarm.minute}" else "${alarm.minute}"
-
-        // Display the alarm time
         binding.tvAlarmTime.text = "${alarm.hour}:${minuteStr} ${alarm.amPm}"
 
-        // Optional: Set up delete button
         binding.btnDeleteAlarm.setOnClickListener {
             deleteAlarm(alarm)
         }
     }
 
-    private fun calculateAlarmTime(alarm: AlarmEntity) {
-        // Calculate time until alarm
+    private fun calculateAlarmTime(alarm: AlarmModel) {
         val timeUntilAlarmMillis = calculateTimeUntilAlarm(alarm.hour, alarm.minute, alarm.amPm)
-
-        // Convert to hours and minutes
         val hours = timeUntilAlarmMillis / (1000 * 60 * 60)
         val minutes = (timeUntilAlarmMillis % (1000 * 60 * 60)) / (1000 * 60)
 
-        // Display time until alarm
         val timeText = when {
             hours > 0 -> {
                 if (minutes > 0) {
@@ -161,18 +146,14 @@ class SetAlarmActivity : AppCompatActivity() {
         }
 
         binding.tvTimeUntilAlarm.text = timeText
-
-        // Optional: Start a periodic update
         startPeriodicUpdate(alarm)
     }
 
-    private fun startPeriodicUpdate(alarm: AlarmEntity) {
-        // Cancel existing timer if any
+    private fun startPeriodicUpdate(alarm: AlarmModel) {
         if (isTimerRunning) {
             countdownTimer.cancel()
         }
 
-        // Update every minute
         countdownTimer = object : CountDownTimer(Long.MAX_VALUE, 60000) {
             override fun onTick(millisUntilFinished: Long) {
                 calculateAlarmTime(alarm)
@@ -190,10 +171,8 @@ class SetAlarmActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
 
-        // Create a calendar for the alarm time
         val alarmCalendar = Calendar.getInstance()
 
-        // Set the alarm hour (convert to 24 hour format if needed)
         var alarmHour = hour
         if (amPm == "PM" && hour < 12) {
             alarmHour += 12
@@ -206,7 +185,6 @@ class SetAlarmActivity : AppCompatActivity() {
         alarmCalendar.set(Calendar.SECOND, 0)
         alarmCalendar.set(Calendar.MILLISECOND, 0)
 
-        // If alarm time is earlier than current time, set it for the next day
         if (alarmCalendar.timeInMillis <= now) {
             alarmCalendar.add(Calendar.DAY_OF_MONTH, 1)
         }
@@ -214,7 +192,7 @@ class SetAlarmActivity : AppCompatActivity() {
         return alarmCalendar.timeInMillis - now
     }
 
-    private fun deleteAlarm(alarm: AlarmEntity) {
+    private fun deleteAlarm(alarm: AlarmModel) {
         CoroutineScope(Dispatchers.IO).launch {
             alarmDao.deleteAlarm(alarm)
 
@@ -225,7 +203,6 @@ class SetAlarmActivity : AppCompatActivity() {
                     binding.cardAlarm.visibility = View.GONE
                     binding.tvTimeUntilAlarm.visibility = View.GONE
 
-                    // Cancel the timer
                     if (isTimerRunning) {
                         countdownTimer.cancel()
                         isTimerRunning = false
