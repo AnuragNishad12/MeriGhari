@@ -21,6 +21,17 @@
         android:layout_gravity="center"
         android:paddingBottom="12dp" />
 
+    <!-- Alarm Day -->
+    <TextView
+        android:id="@+id/tvAlarmDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:paddingBottom="12dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

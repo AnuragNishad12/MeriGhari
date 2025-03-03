@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/plusimage"
-        app:tint="@color/purple" />
+        app:tint="#00E2FF" />
 
     <TextView
         android:id="@+id/textView3"
@@ -36,8 +36,8 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/agbalumo"
         android:text="Set The Alarm To get Up"
-        android:textColor="@color/purple"
-        android:textSize="34sp"
+        android:textColor="@color/blueTeel"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +145,7 @@
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:backgroundTint="#FF0101"
-                android:text="Button"
+                android:text="Delete"
                 android:textSize="8sp"
                 app:cornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView12"

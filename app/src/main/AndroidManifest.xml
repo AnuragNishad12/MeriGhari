@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 
     <application
@@ -20,12 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeriGhari"
         tools:targetApi="31">
+
         <activity
             android:name=".Pages.AlarmActivity"
             android:exported="false" />
         <activity
             android:name=".Pages.SetAlarmActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".Pages.QuestionActivity"
             android:exported="false" />
@@ -51,11 +55,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <receiver android:name=".Pages.AlarmReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+
     </application>
 
 </manifest>
