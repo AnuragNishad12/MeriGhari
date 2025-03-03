@@ -1,16 +1,25 @@
 package com.example.merighari.Pages
 
+import android.Manifest
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.Button
-import android.widget.NumberPicker
-import android.widget.TextView
-import android.widget.VideoView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.media3.ui.PlayerView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.merighari.AlarmActivity.AlarmReceiver
+import com.example.merighari.AlarmActivity.AlarmsActivity
+import com.example.merighari.Model.Alarm
 import com.example.merighari.Model.AlarmDao
 import com.example.merighari.Model.AlarmDatabase
 import com.example.merighari.Model.AlarmModel
@@ -23,6 +32,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 
 class SetAlarmActivity : AppCompatActivity() {
@@ -30,12 +40,33 @@ class SetAlarmActivity : AppCompatActivity() {
     private lateinit var alarmDao: AlarmDao
     private lateinit var countdownTimer: CountDownTimer
     private var isTimerRunning = false
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        createNotificationChannel()
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission()
+        }
+
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmIntent = Intent(this, AlarmReceiver::class.java)
+        pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            alarmIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+
+
 
         val db = AlarmDatabase.getDatabase(this)
         alarmDao = db.alarmDao()
@@ -120,18 +151,34 @@ class SetAlarmActivity : AppCompatActivity() {
         }
     }
 
+//    private fun displayAlarm(alarm: AlarmModel) {
+//        binding.tvNoAlarm.visibility = View.GONE
+//        binding.cardAlarm.visibility = View.VISIBLE
+//        binding.tvTimeUntilAlarm.visibility = View.VISIBLE
+//
+//        val minuteStr = if (alarm.minute < 10) "0${alarm.minute}" else "${alarm.minute}"
+//        binding.tvAlarmTime.text = "${alarm.hour}:${minuteStr} ${alarm.amPm}"
+//
+//        binding.btnDeleteAlarm.setOnClickListener {
+//            deleteAlarm(alarm)
+//        }
+//    }
+
     private fun displayAlarm(alarm: AlarmModel) {
         binding.tvNoAlarm.visibility = View.GONE
         binding.cardAlarm.visibility = View.VISIBLE
         binding.tvTimeUntilAlarm.visibility = View.VISIBLE
 
-        val minuteStr = if (alarm.minute < 10) "0${alarm.minute}" else "${alarm.minute}"
-        binding.tvAlarmTime.text = "${alarm.hour}:${minuteStr} ${alarm.amPm}"
+        val minuteStr = String.format("%02d", alarm.minute)
+        binding.tvAlarmTime.text = "${alarm.hour}:$minuteStr ${alarm.amPm}"
+
+        setAlarm(alarm) // Call setAlarm with the alarm data
 
         binding.btnDeleteAlarm.setOnClickListener {
             deleteAlarm(alarm)
         }
     }
+
 
     private fun calculateAlarmTime(alarm: AlarmModel) {
         val timeUntilAlarmMillis = calculateTimeUntilAlarm(alarm.hour, alarm.minute, alarm.amPm)
@@ -218,5 +265,75 @@ class SetAlarmActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setAlarm(alarm: AlarmModel) {
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, alarm.hour)
+            set(Calendar.MINUTE, alarm.minute)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        val timeInMillis = calendar.timeInMillis
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+
+        val minuteStr = String.format("%02d", alarm.minute)
+        binding.tvAlarmTime.text = "${alarm.hour}:$minuteStr ${alarm.amPm}"
+        Toast.makeText(this, "Alarm set for ${alarm.hour}:$minuteStr ${alarm.amPm}", Toast.LENGTH_SHORT).show()
+    }
+
+
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "alarm_channel",
+                "Alarm Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            channel.description = "Channel for alarm notifications"
+            channel.enableLights(true)
+            channel.enableVibration(true)
+
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+
+    private fun requestNotificationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                SetAlarmActivity.NOTIFICATION_PERMISSION_CODE
+            )
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == SetAlarmActivity.NOTIFICATION_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Notification permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Notifications won't work without permission", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    companion object {
+        private const val NOTIFICATION_PERMISSION_CODE = 123
+    }
+
 }
 
