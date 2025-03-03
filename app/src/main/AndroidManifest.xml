@@ -2,14 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
 
 
     <application
@@ -21,15 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeriGhari"
         tools:targetApi="31">
+        <activity
+            android:name=".AlarmActivity.AlarmsActivity"
+            android:exported="true" >
 
+        </activity>
         <activity
             android:name=".Pages.AlarmActivity"
             android:exported="false" />
         <activity
             android:name=".Pages.SetAlarmActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Pages.QuestionActivity"
             android:exported="false" />
@@ -56,6 +57,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <receiver android:name=".AlarmActivity.AlarmReceiver" android:exported="true" />
+        <receiver android:name=".AlarmActivity.DismissReceiver" android:exported="true" />
     </application>
 
 </manifest>
