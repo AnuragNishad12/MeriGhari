@@ -21,8 +21,8 @@
         android:id="@+id/btnShowPicker"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="28dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,15 +33,15 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/agbalumo"
         android:text="Set The Alarm To get Up"
         android:textColor="@color/blueTeel"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnShowPicker"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/btnShowPicker" />
 
     <!-- Add these to your existing layout -->
     <TextView
@@ -179,6 +179,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

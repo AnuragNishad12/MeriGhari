@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.animation.AlphaAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.example.merighari.Objects.AnimationHelperRightToLeft
 import com.example.merighari.Pages.GeneralQuestion
 import com.example.merighari.Pages.SetAlarmActivity
@@ -73,6 +74,14 @@ class MainActivity : AppCompatActivity() {
         binding.generalcard.setOnClickListener{
             startActivity(Intent(this@MainActivity,SetAlarmActivity::class.java))
         }
+        val gifImageView = findViewById<ImageView>(R.id.gifImageView)
+        val gifUrl = "https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif"
+
+        Glide.with(this)
+            .asGif()
+            .load(gifUrl)
+            .into(gifImageView)
+
 
 
     }

@@ -8,11 +8,14 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.merighari.R
@@ -22,29 +25,31 @@ class AlarmsActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarms)
 
-        createNotificationChannel()
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestNotificationPermission()
-        }
-
-        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val alarmIntent = Intent(this, AlarmReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            alarmIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        findViewById<Button>(R.id.setAlarmButton).setOnClickListener {
-            setAlarm()
-        }
+//        createNotificationChannel()
+//
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            requestNotificationPermission()
+//        }
+//
+//        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        val alarmIntent = Intent(this, AlarmReceiver::class.java)
+//        pendingIntent = PendingIntent.getBroadcast(
+//            this,
+//            0,
+//            alarmIntent,
+//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+//        )
+//
+//        findViewById<Button>(R.id.setAlarmButton).setOnClickListener {
+//            setAlarm()
+//        }
     }
 
     private fun createNotificationChannel() {
