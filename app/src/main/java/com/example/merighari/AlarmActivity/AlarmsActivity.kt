@@ -31,25 +31,25 @@ class AlarmsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarms)
 
-//        createNotificationChannel()
-//
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            requestNotificationPermission()
-//        }
-//
-//        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//        val alarmIntent = Intent(this, AlarmReceiver::class.java)
-//        pendingIntent = PendingIntent.getBroadcast(
-//            this,
-//            0,
-//            alarmIntent,
-//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-//        )
-//
-//        findViewById<Button>(R.id.setAlarmButton).setOnClickListener {
-//            setAlarm()
-//        }
+        createNotificationChannel()
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission()
+        }
+
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmIntent = Intent(this, AlarmReceiver::class.java)
+        pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            alarmIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        findViewById<Button>(R.id.setAlarmButton).setOnClickListener {
+            setAlarm()
+        }
     }
 
     private fun createNotificationChannel() {
