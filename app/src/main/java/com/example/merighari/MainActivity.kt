@@ -75,11 +75,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity,SetAlarmActivity::class.java))
         }
         val gifImageView = findViewById<ImageView>(R.id.gifImageView)
-        val gifUrl = "https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif"
 
         Glide.with(this)
             .asGif()
-            .load(gifUrl)
+            .load(R.drawable.horserunning)
             .into(gifImageView)
 
 

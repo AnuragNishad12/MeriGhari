@@ -18,6 +18,7 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.merighari.MainActivity
 import com.example.merighari.Objects.AnimationHelperRightToLeft
 import com.example.merighari.R
@@ -44,7 +45,17 @@ class LandingPage : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(binding.root)
 
+        val gifImageView = findViewById<ImageView>(R.id.gifimage)
+        val gifImageView2 = findViewById<ImageView>(R.id.gifimage2)
 
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.snowfall)
+            .into(gifImageView)
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.horserunning)
+            .into(gifImageView2)
 
         binding.cardView3.setOnClickListener{
             startActivity(Intent(this@LandingPage,MainActivity::class.java))
