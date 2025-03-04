@@ -17,6 +17,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.merighari.AlarmActivity.AlarmReceiver
 import com.example.merighari.AlarmActivity.AlarmsActivity
 import com.example.merighari.Model.Alarm
@@ -49,6 +50,9 @@ class SetAlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+
+
+
         createNotificationChannel()
 
 
@@ -71,14 +75,49 @@ class SetAlarmActivity : AppCompatActivity() {
         val db = AlarmDatabase.getDatabase(this)
         alarmDao = db.alarmDao()
 
+//        binding.btnShowPicker.setOnClickListener {
+//            showTimePickerDialog(this) { hour, minute, amPm ->
+//                saveAlarmToDatabase(hour, minute, amPm)
+//            }
+//        }
+
         binding.btnShowPicker.setOnClickListener {
             showTimePickerDialog(this) { hour, minute, amPm ->
+                val calendar = Calendar.getInstance().apply {
+                    set(Calendar.HOUR, hour)
+                    set(Calendar.MINUTE, minute)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                    set(Calendar.AM_PM, if (amPm == "AM") Calendar.AM else Calendar.PM)
+
+                    if (before(Calendar.getInstance())) {
+                        add(Calendar.DAY_OF_MONTH, 1)
+                    }
+                }
+                val timeInMillis = calendar.timeInMillis
                 saveAlarmToDatabase(hour, minute, amPm)
+                setAlarm(this, timeInMillis)
             }
         }
 
         loadLatestAlarm()
     }
+
+
+    fun setAlarm(context: Context, timeInMillis: Long) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+        Toast.makeText(context, "Alarm set!", Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -87,7 +126,41 @@ class SetAlarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun showTimePickerDialog(context: Context, onTimeSelected: (Int, Int, String) -> Unit) {
+//    private fun showTimePickerDialog(context: Context, onTimeSelected: (Int, Int, String) -> Unit) {
+//        val dialog = BottomSheetDialog(context)
+//        dialog.setContentView(R.layout.dialog_time_picker)
+//
+//        val numberPickerHour: NumberPicker = dialog.findViewById(R.id.numberPickerHour)!!
+//        val numberPickerMinute: NumberPicker = dialog.findViewById(R.id.numberPickerMinute)!!
+//        val numberPickerAmPm: NumberPicker = dialog.findViewById(R.id.numberPickerAmPm)!!
+//        val btnSetTime: Button = dialog.findViewById(R.id.btnSetTime)!!
+//        val tvAlarmDay: TextView = dialog.findViewById(R.id.tvAlarmDay) ?: TextView(context) // Fallback if not in layout
+//
+//        numberPickerHour.minValue = 1
+//        numberPickerHour.maxValue = 12
+//        numberPickerMinute.minValue = 0
+//        numberPickerMinute.maxValue = 59
+//
+//        numberPickerAmPm.minValue = 0
+//        numberPickerAmPm.maxValue = 1
+//        numberPickerAmPm.displayedValues = arrayOf("AM", "PM")
+//
+//        btnSetTime.setOnClickListener {
+//            val selectedHour = numberPickerHour.value
+//            val selectedMinute = numberPickerMinute.value
+//            val selectedAmPm = if (numberPickerAmPm.value == 0) "AM" else "PM"
+//
+//            onTimeSelected(selectedHour, selectedMinute, selectedAmPm)
+//            dialog.dismiss()
+//        }
+//
+//        dialog.show()
+//    }
+
+    private fun showTimePickerDialog(
+        context: Context,
+        onTimeSelected: (Int, Int, String) -> Unit
+    ) {
         val dialog = BottomSheetDialog(context)
         dialog.setContentView(R.layout.dialog_time_picker)
 
@@ -95,7 +168,6 @@ class SetAlarmActivity : AppCompatActivity() {
         val numberPickerMinute: NumberPicker = dialog.findViewById(R.id.numberPickerMinute)!!
         val numberPickerAmPm: NumberPicker = dialog.findViewById(R.id.numberPickerAmPm)!!
         val btnSetTime: Button = dialog.findViewById(R.id.btnSetTime)!!
-        val tvAlarmDay: TextView = dialog.findViewById(R.id.tvAlarmDay) ?: TextView(context) // Fallback if not in layout
 
         numberPickerHour.minValue = 1
         numberPickerHour.maxValue = 12
@@ -117,6 +189,10 @@ class SetAlarmActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+
+
+
 
     private fun saveAlarmToDatabase(hour: Int, minute: Int, amPm: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -172,7 +248,7 @@ class SetAlarmActivity : AppCompatActivity() {
         val minuteStr = String.format("%02d", alarm.minute)
         binding.tvAlarmTime.text = "${alarm.hour}:$minuteStr ${alarm.amPm}"
 
-        setAlarm(alarm) // Call setAlarm with the alarm data
+    // Call setAlarm with the alarm data
 
         binding.btnDeleteAlarm.setOnClickListener {
             deleteAlarm(alarm)
@@ -266,21 +342,21 @@ class SetAlarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun setAlarm(alarm: AlarmModel) {
-        val calendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, alarm.hour)
-            set(Calendar.MINUTE, alarm.minute)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-
-        val timeInMillis = calendar.timeInMillis
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
-
-        val minuteStr = String.format("%02d", alarm.minute)
-        binding.tvAlarmTime.text = "${alarm.hour}:$minuteStr ${alarm.amPm}"
-        Toast.makeText(this, "Alarm set for ${alarm.hour}:$minuteStr ${alarm.amPm}", Toast.LENGTH_SHORT).show()
-    }
+//    private fun setAlarm(alarm: AlarmModel) {
+//        val calendar = Calendar.getInstance().apply {
+//            set(Calendar.HOUR_OF_DAY, alarm.hour)
+//            set(Calendar.MINUTE, alarm.minute)
+//            set(Calendar.SECOND, 0)
+//            set(Calendar.MILLISECOND, 0)
+//        }
+//
+//        val timeInMillis = calendar.timeInMillis
+//        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+//
+//        val minuteStr = String.format("%02d", alarm.minute)
+//        binding.tvAlarmTime.text = "${alarm.hour}:$minuteStr ${alarm.amPm}"
+//        Toast.makeText(this, "Alarm set for ${alarm.hour}:$minuteStr ${alarm.amPm}", Toast.LENGTH_SHORT).show()
+//    }
 
 
 
