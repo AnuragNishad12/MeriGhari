@@ -16,12 +16,12 @@ import com.example.merighari.R
 
 class QuestionAdapter(
     private val questionList: MutableList<Question>,
-    private val onQuestionSolved: (Int) -> Unit  // Callback when question is solved
+    private val onQuestionSolved: (Int) -> Unit
 ) : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
     inner class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questionText: TextView = itemView.findViewById(R.id.questionText)
-        val solvedIndicator: TextView = itemView.findViewById(R.id.solvedIndicator) // New text to mark solved
+        val solvedIndicator: TextView = itemView.findViewById(R.id.solvedIndicator)
 
         init {
             itemView.setOnClickListener {
@@ -46,7 +46,7 @@ class QuestionAdapter(
         val question = questionList[position]
         holder.questionText.text = question.questionText
 
-        // Mark question as solved
+
         if (question.isSolved) {
             holder.solvedIndicator.visibility = View.VISIBLE
             holder.solvedIndicator.text = "✅ Solved"
@@ -55,11 +55,12 @@ class QuestionAdapter(
         }
     }
 
+
     override fun getItemCount(): Int {
         return questionList.size
     }
 
-    // Update question when solved
+
     fun markQuestionAsSolved(position: Int) {
         questionList[position].isSolved = true
         notifyItemChanged(position)

@@ -63,13 +63,13 @@ class SetAlarmActivity : AppCompatActivity() {
 
         createNotificationChannel()
 
-//        val gifImageView = findViewById<ImageView>(R.id.gifimage)
-//        val gifUrl = "https://i.pinimg.com/originals/96/0e/e6/960ee6ddff9b59d816b453f8242403cb.gif"
-//
-//        Glide.with(this)
-//            .asGif()
-//            .load(gifUrl)
-//            .into(gifImageView)
+        val gifImageView = findViewById<ImageView>(R.id.imageView14)
+
+
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.walking)
+            .into(gifImageView)
 
 
 
@@ -133,7 +133,8 @@ class SetAlarmActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+
         Toast.makeText(context, "Alarm set!", Toast.LENGTH_SHORT).show()
     }
 

@@ -54,7 +54,7 @@ class LandingPage : AppCompatActivity() {
             .into(gifImageView)
         Glide.with(this)
             .asGif()
-            .load(R.drawable.horserunning)
+            .load(R.drawable.walking)
             .into(gifImageView2)
 
         binding.cardView3.setOnClickListener{

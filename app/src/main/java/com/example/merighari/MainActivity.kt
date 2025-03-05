@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
         Glide.with(this)
             .asGif()
-            .load(R.drawable.horserunning)
+            .load(R.drawable.walking)
             .into(gifImageView)
 
 

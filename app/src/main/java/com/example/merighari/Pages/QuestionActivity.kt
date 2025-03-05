@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.merighari.AlarmActivity.AlarmService
 import com.example.merighari.Model.Question
 import com.example.merighari.R
 
@@ -44,6 +45,10 @@ class QuestionActivity : AppCompatActivity() {
                 val resultIntent = Intent()
                 resultIntent.putExtra("position", position)
                 setResult(Activity.RESULT_OK, resultIntent)
+                val serviceIntent = Intent(this, AlarmService::class.java).apply {
+                    action = AlarmService.ACTION_STOP_ALARM
+                }
+                startService(serviceIntent)
                 finish()
             } else {
                 Toast.makeText(this, "Wrong Answer!", Toast.LENGTH_SHORT).show()
