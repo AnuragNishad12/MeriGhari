@@ -30,7 +30,7 @@ class AlarmService : Service() {
     }
 
     private fun startForeground() {
-        val notificationIntent = Intent(this, AlarmReceiver::class.java)
+        val notificationIntent = Intent(this, AlarmsActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

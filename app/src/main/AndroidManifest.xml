@@ -3,15 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
-
-
 
     <application
         android:allowBackup="true"
@@ -23,16 +21,32 @@
         android:theme="@style/Theme.MeriGhari"
         tools:targetApi="31">
         <activity
-            android:name=".AlarmActivity.AlarmsActivity"
-            android:exported="true" >
+            android:name=".QuestionTypes"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.loginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.SignUpActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".Experiments.Experimenting"
+            android:exported="true" />
+        <activity
+            android:name=".AlarmActivity.AlarmsActivity"
+            android:exported="true" />
         <activity
             android:name=".Pages.AlarmActivity"
             android:exported="false" />
         <activity
             android:name=".Pages.SetAlarmActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Pages.QuestionActivity"
             android:exported="false" />
@@ -44,13 +58,7 @@
             android:exported="false" />
         <activity
             android:name=".Pages.LandingPage"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -58,13 +66,22 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service
             android:name=".AlarmActivity.AlarmService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
-        <receiver android:name=".AlarmActivity.AlarmReceiver" android:exported="true" />
-        <receiver android:name=".AlarmActivity.DismissReceiver" android:exported="true" />
+
+        <receiver
+            android:name=".AlarmActivity.AlarmReceiver"
+            android:exported="true" />
+        <receiver
+            android:name=".AlarmActivity.DismissReceiver"
+            android:exported="true" /> <!-- experimenting -->
+        <service
+            android:name=".Experiments.MyForegroundService"
+            android:foregroundServiceType="dataSync" />
     </application>
 
 </manifest>
