@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MeriGhari</string>
+    <string name="rupee">₹50/-</string>
+
 </resources>
