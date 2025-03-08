@@ -7,4 +7,4 @@ data class Question(
     val options: List<String>,
     val correctAnswer: String,
     var isSolved: Boolean = false
-) : Serializable  // Make it Serializable to pass via Intent
+) : Serializable

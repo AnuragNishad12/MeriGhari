@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView16"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="900dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/archivo_black"
         android:text="Pricing Plan"
         android:textColor="#FFFFFF"
@@ -51,7 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="10dp"
         app:cardBackgroundColor="#190046"
         app:cardCornerRadius="20dp"
@@ -221,6 +221,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="-14dp"
+        app:cardBackgroundColor="#FFBF00"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toTopOf="@+id/featureCard"
         app:layout_constraintStart_toStartOf="@+id/featureCard">
@@ -236,7 +237,8 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/agbalumo"
                 android:text="1 Year Plan"
-                android:textColor="@color/purple"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -245,6 +247,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/cancelbutton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307"
+        app:srcCompat="@drawable/cancelimage"
+        app:tint="#FFFFFF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

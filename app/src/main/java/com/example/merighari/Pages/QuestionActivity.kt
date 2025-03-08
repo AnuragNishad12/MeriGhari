@@ -19,6 +19,7 @@ class QuestionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
+        supportActionBar?.hide()
 
         question = intent.getSerializableExtra("question") as Question
         position = intent.getIntExtra("position", -1)

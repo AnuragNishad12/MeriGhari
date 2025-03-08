@@ -16,6 +16,7 @@ class GeneralQuestion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general_question)
+        supportActionBar?.hide()
 
 
 
@@ -31,8 +32,36 @@ class GeneralQuestion : AppCompatActivity() {
             Question("Which is a backend framework?", listOf("React", "Spring Boot", "Flutter", "Vue"), "Spring Boot"),
             Question("What is Android's default language?", listOf("Kotlin", "Swift", "C++", "Java"), "Java"),
             Question("What is AI?", listOf("Artificial Intelligence", "Android Interface", "Auto Internet", "Automated Input"), "Artificial Intelligence"),
-            // Add 95 more unique questions
-        )
+
+
+            Question("Which country has the most natural lakes?", listOf("Canada", "Russia", "Brazil", "United States"), "Canada"),
+            Question("Who was the first emperor of China?", listOf("Sun Tzu", "Qin Shi Huang", " Liu Bang", "Confucius"), "Qin Shi Huang"),
+            Question("What is the largest volcano in the Solar System?", listOf("Mount Everest", "Mauna Loa", "Olympus Mons", "Mount Etna"), "Olympus Mons"),
+            Question("Which element has the highest melting point?", listOf("Carbon", "Tungsten", "Iron", "Platinum"), "Tungsten"),
+            Question("What is the square root of 361?", listOf("17", "18", "19", "20"), "19"),
+
+
+            Question("Which organ in the human body produces insulin?", listOf("Liver", "Pancreas", "Kidney", "Gallbladder"), "Pancreas"),
+            Question("Who wrote One Hundred Years of Solitude?", listOf("Gabriel Garcia Marquez", " Paulo Coelho", "Ernest Hemingway", "George Orwell"), "Gabriel Garcia Marquez"),
+            Question("What does “HTTP” stand for?",
+                listOf("HyperText Transfer Protocol", "Hyperlink Text Transfer Protocol", "High Transfer Text Process", "Hyperlink Transmission Technology"),
+                "HyperText Transfer Protocol"),
+            Question("What particle has a positive charge?", listOf("Neutron", "Proton", "Electron", "Photon"), "Proton"),
+            Question("Who painted The Persistence of Memory?",
+                listOf("Pablo Picasso", "Salvador Dalí", "Vincent van Gogh", "Claude Monet"), "Salvador Dalí"),
+            Question("In which year did the first episode of Game of Thrones air?",
+                listOf("2009", "2010", "2011", "2012"), "2011"),
+            Question("Which country has won the most FIFA World Cups?",
+                listOf("Germany", "Brazil", "Italy", "Argentina"), "Brazil"),
+            Question("What does GDP stand for?",
+                listOf("Gross Domestic Product", "General Domestic Price", "Global Development Plan", "Gross Development Profit"), "Gross Domestic Product"),
+            Question("Which band released the album The Dark Side of the Moon?",
+                listOf("The Beatles", "Led Zeppelin", "Pink Floyd", "The Rolling Stones"), "Pink Floyd"),
+            Question("What has keys but can’t open locks?", listOf("A door", "A piano", "A computer", "A clock"), "A piano"),
+            Question("Which vitamin is primarily gained from sunlight?",
+                listOf("Vitamin A", "Vitamin B", "Vitamin D", "Vitamin K"), "Vitamin D"),
+
+            )
 
         questionAdapter = QuestionAdapter(questionList) { position ->
             questionList[position].isSolved = true
