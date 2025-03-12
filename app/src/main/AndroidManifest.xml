@@ -17,24 +17,35 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeriGhari"
         tools:targetApi="31">
+        <activity
+            android:name=".FloatingBox.AdActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".PhonePe.PhonePeActivity"
             android:exported="false" />
         <activity
             android:name=".Pages.PlanActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Pages.QuestionTypes"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Pages.loginActivity"
             android:exported="false" />
         <activity
             android:name=".Pages.SignUpActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Experiments.Experimenting"
             android:exported="true" />
@@ -59,11 +70,7 @@
         <activity
             android:name=".Pages.LandingPage"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -84,10 +91,7 @@
             android:exported="true" />
         <receiver
             android:name=".AlarmActivity.DismissReceiver"
-            android:exported="true" /> <!-- experimenting -->
-        <service
-            android:name=".Experiments.MyForegroundService"
-            android:foregroundServiceType="dataSync" />
+            android:exported="true" />
     </application>
 
 </manifest>

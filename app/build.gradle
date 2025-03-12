@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'com.example.merighari'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.merighari"
         minSdk 24
-        targetSdk 33
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:18.2.9'
     implementation 'com.google.firebase:firebase-analytics:20.1.2'
     implementation 'com.google.firebase:firebase-auth:21.0.3'
+    implementation 'androidx.activity:activity:1.10.1'
 //    implementation 'com.google.firebase:firebase-auth:23.2.0'
 //    implementation 'androidx.credentials:credentials:1.5.0-rc01'
 //    implementation 'androidx.credentials:credentials-play-services-auth:1.3.0'
