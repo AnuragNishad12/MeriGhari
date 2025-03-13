@@ -4,6 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.widget.ImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.merighari.Adapter.QuestionAdapter
@@ -13,6 +17,11 @@ import com.example.merighari.R
 class GeneralQuestion : AppCompatActivity() {
     private lateinit var questionAdapter: QuestionAdapter
     private lateinit var questionList: MutableList<Question>
+    private lateinit var adBox: ConstraintLayout
+    private var dX = 0f
+    private var dY = 0f
+    private var maxX = 0f
+    private var maxY = 0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general_question)
@@ -78,5 +87,43 @@ class GeneralQuestion : AppCompatActivity() {
                 questionAdapter.markQuestionAsSolved(position)
             }
         }
+
+        adBox = findViewById(R.id.adBox)
+        val closeButton: ImageButton = findViewById(R.id.closeButton)
+
+
+        adBox.post {
+            val displayMetrics = resources.displayMetrics
+            val screenWidth = displayMetrics.widthPixels
+            val screenHeight = displayMetrics.heightPixels
+
+            maxX = (screenWidth - adBox.width).toFloat()
+            maxY = (screenHeight - adBox.height).toFloat()
+        }
+
+        adBox.setOnTouchListener { view, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    dX = view.x - event.rawX
+                    dY = view.y - event.rawY
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val newX = event.rawX + dX
+                    val newY = event.rawY + dY
+
+
+                    view.x = newX.coerceIn(0f, maxX)
+                    view.y = newY.coerceIn(0f, maxY)
+                }
+            }
+            true
+        }
+
+        closeButton.setOnClickListener {
+            adBox.visibility = View.GONE
+        }
+
+
+
     }
 }
