@@ -4,7 +4,10 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import com.example.merighari.Pages.GameActivity
 import com.example.merighari.Pages.GeneralQuestion
+import com.example.merighari.Pages.PuzzleActivity
 import com.example.merighari.Pages.QuestionTypes
 
 //class DismissReceiver : BroadcastReceiver() {
@@ -22,19 +25,26 @@ import com.example.merighari.Pages.QuestionTypes
 
 class DismissReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-//        val serviceIntent = Intent(context, AlarmService::class.java).apply {
-//            action = AlarmService.ACTION_STOP_ALARM
-//        }
-//        context.startService(serviceIntent)
-//
-//
-//        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//        notificationManager.cancel(AlarmService.NOTIFICATION_ID)
-        val activityIntent = Intent(context, QuestionTypes::class.java)
-        activityIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        context.startActivity(activityIntent)
+        Log.d("DismissReceiver", "Broadcast received!")
 
-        val notificationManager2 = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager2.cancel(AlarmService.NOTIFICATION_ID)
+        val questionType = intent.getStringExtra("question_type")
+        Log.d("DismissReceiver", "Question Type: $questionType")
+
+        val activityIntent = when (questionType) {
+            "generalQuestion" -> Intent(context, QuestionTypes::class.java)
+            "gameType" -> Intent(context, GameActivity::class.java)
+            "puzzleType" -> Intent(context, PuzzleActivity::class.java)
+            else -> null
+        }
+
+        activityIntent?.let {
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(it)
+            Log.d("DismissReceiver", "Starting activity: ${it.component?.className}")
+        }
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(AlarmService.NOTIFICATION_ID)
     }
+
 }

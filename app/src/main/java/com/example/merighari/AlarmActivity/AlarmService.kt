@@ -5,38 +5,45 @@ import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.example.merighari.Pages.LandingPage
 import com.example.merighari.R
 
 class AlarmService : Service() {
+    private var selectedQuestionType: String? = null
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        startForeground()
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when (intent?.action) {
-            ACTION_START_ALARM -> startAlarm()
-            ACTION_STOP_ALARM -> stopAlarm()
+        selectedQuestionType = intent?.getStringExtra("question_type")
+        Log.d("SelectedQuestion", selectedQuestionType ?: "No question type received")
+
+        if (intent?.action == ACTION_START_ALARM) {
+            startForeground() // Ensure this happens after selectedQuestionType is set
+            startAlarm()
+        } else if (intent?.action == ACTION_STOP_ALARM) {
+            stopAlarm()
         }
 
         return START_STICKY
     }
 
     private fun startForeground() {
-        val notificationIntent = Intent(this, AlarmsActivity::class.java)
+        val notificationIntent = Intent(this, LandingPage::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val dismissIntent = Intent(this, DismissReceiver::class.java)
+        val dismissIntent = Intent(this, DismissReceiver::class.java).apply {
+            putExtra("question_type", selectedQuestionType)
+        }
+        Log.d("SelectedQuestion2", selectedQuestionType ?: "No question type received")
+
         val dismissPendingIntent = PendingIntent.getBroadcast(
             this, 0, dismissIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

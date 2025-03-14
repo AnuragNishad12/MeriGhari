@@ -51,8 +51,10 @@ import com.example.merighari.R
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        val questionType = intent.getStringExtra("question_type")
         val serviceIntent = Intent(context, AlarmService::class.java).apply {
             action = AlarmService.ACTION_START_ALARM
+            putExtra("question_type", questionType)
         }
 
 

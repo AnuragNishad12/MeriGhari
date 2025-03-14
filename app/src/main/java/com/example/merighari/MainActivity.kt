@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.animation.AlphaAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.example.merighari.Objects.AnimationHelperRightToLeft
 import com.example.merighari.Pages.GeneralQuestion
@@ -21,6 +22,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private  lateinit var binding:ActivityMainBinding
+
     private val handler = Handler(Looper.getMainLooper())
     val runnable = object : Runnable {
         override fun run() {
@@ -72,8 +74,25 @@ class MainActivity : AppCompatActivity() {
             AnimationHelperRightToLeft.bubblyeffect(binding.moonimage)
 
         binding.generalcard.setOnClickListener{
-            startActivity(Intent(this@MainActivity,SetAlarmActivity::class.java))
+            val intent = Intent(this, SetAlarmActivity::class.java)
+            intent.putExtra("question_type","generalQuestion")
+            startActivity(intent)
+
+
         }
+
+        binding.gametype.setOnClickListener{
+            val intent = Intent(this,SetAlarmActivity::class.java)
+            intent.putExtra("question_type","gameType")
+            startActivity(intent)
+        }
+
+        binding.puzzletype.setOnClickListener{
+            val intent = Intent(this,SetAlarmActivity::class.java)
+            intent.putExtra("question_type","puzzleType")
+            startActivity(intent)
+        }
+
         val gifImageView = findViewById<ImageView>(R.id.gifImageView)
 
         Glide.with(this)

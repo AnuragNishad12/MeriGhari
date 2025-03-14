@@ -49,8 +49,8 @@ class SetAlarmActivity : AppCompatActivity() {
     private lateinit var alarmDao: AlarmDao
     private lateinit var countdownTimer: CountDownTimer
     private var isTimerRunning = false
-    private lateinit var alarmManager: AlarmManager
-    private lateinit var pendingIntent: PendingIntent
+    private var questionType: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +62,7 @@ class SetAlarmActivity : AppCompatActivity() {
 
 
         createNotificationChannel()
+        questionType = intent.getStringExtra("question_type")
 
         val gifImageView = findViewById<ImageView>(R.id.imageView14)
 
@@ -125,7 +126,9 @@ class SetAlarmActivity : AppCompatActivity() {
 
     fun setAlarm(context: Context, timeInMillis: Long) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
+        val intent = Intent(context, AlarmReceiver::class.java).apply {
+            putExtra("question_type",questionType)
+        }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             0,

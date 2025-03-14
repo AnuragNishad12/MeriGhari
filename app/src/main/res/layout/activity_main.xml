@@ -137,7 +137,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
+        android:id="@+id/gametype"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginEnd="52dp"
@@ -188,14 +188,14 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView5"
+        android:id="@+id/puzzletype"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="15dp"
         app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/cardView4"
+        app:layout_constraintEnd_toEndOf="@+id/gametype"
         app:layout_constraintStart_toStartOf="@+id/generalcard"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+        app:layout_constraintTop_toBottomOf="@+id/gametype">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -245,7 +245,7 @@
         android:layout_marginStart="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView5"
+        app:layout_constraintTop_toBottomOf="@+id/puzzletype"
         app:layout_constraintVertical_bias="0.661"
         app:srcCompat="@drawable/moon" />
 
