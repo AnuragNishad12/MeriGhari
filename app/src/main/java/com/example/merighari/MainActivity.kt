@@ -12,25 +12,23 @@ import android.view.animation.AlphaAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.merighari.Fragments.AlarmFragment
+import com.example.merighari.Fragments.ShopsFragment
 import com.example.merighari.Objects.AnimationHelperRightToLeft
+import com.example.merighari.Pages.AlarmActivity
 import com.example.merighari.Pages.GeneralQuestion
 import com.example.merighari.Pages.SetAlarmActivity
 import com.example.merighari.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private  lateinit var binding:ActivityMainBinding
 
-    private val handler = Handler(Looper.getMainLooper())
-    val runnable = object : Runnable {
-        override fun run() {
-            val currentTime = SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(Date())
-            binding.autoclock.text = currentTime
-            handler.postDelayed(this, 1000) // Update every second
-        }
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,93 +37,24 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
 
-        binding.autoclock.setShadowLayer(15f, 0f, 0f, Color.YELLOW)
-        val frameLayout = findViewById<FrameLayout>(R.id.frameLayout)
 
-        val displayMetrics = resources.displayMetrics
-        val screenWidth = displayMetrics.widthPixels
-        val screenHeight = displayMetrics.heightPixels
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        for (i in 1..20) {
-            val imageView = ImageView(this)
-            imageView.setImageResource(R.drawable.starsimage)
+        // Set default fragment
+        loadFragment(AlarmFragment())
 
-            val size = (50..150).random()
-            val layoutParams = FrameLayout.LayoutParams(size, size)
-            imageView.layoutParams = layoutParams
-
-            val xPos = (0 until screenWidth - size).random()
-            val yPos = (0 until screenHeight - size).random()
-            imageView.x = xPos.toFloat()
-            imageView.y = yPos.toFloat()
-
-            Log.d("ImageView", "Adding image at x=$xPos, y=$yPos") // Debugging
-
-            frameLayout.addView(imageView)
-            startAnimation(imageView)
-
-            handler.post(runnable)
-
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_set_alarm -> loadFragment(AlarmFragment())
+                R.id.nav_shops -> loadFragment(ShopsFragment())
+            }
+            true
+        }
     }
 
-
-
-
-            AnimationHelperRightToLeft.bubblyeffect(binding.moonimage)
-
-        binding.generalcard.setOnClickListener{
-            val intent = Intent(this, SetAlarmActivity::class.java)
-            intent.putExtra("question_type","generalQuestion")
-            startActivity(intent)
-
-
-        }
-
-        binding.gametype.setOnClickListener{
-            val intent = Intent(this,SetAlarmActivity::class.java)
-            intent.putExtra("question_type","gameType")
-            startActivity(intent)
-        }
-
-        binding.puzzletype.setOnClickListener{
-            val intent = Intent(this,SetAlarmActivity::class.java)
-            intent.putExtra("question_type","puzzleType")
-            startActivity(intent)
-        }
-
-        val gifImageView = findViewById<ImageView>(R.id.gifImageView)
-
-        Glide.with(this)
-            .asGif()
-            .load(R.drawable.walking)
-            .into(gifImageView)
-
-
-
-    }
-
-
-    private fun startAnimation(imageView: ImageView) {
-        val fadeInOut = AlphaAnimation(0f, 1f).apply {
-            duration = (500..1500).random().toLong()
-            repeatMode = AlphaAnimation.REVERSE
-            repeatCount = AlphaAnimation.INFINITE
-        }
-
-        val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f, 1.5f, 1f).apply {
-            duration = (1000..2000).random().toLong()
-            repeatMode = ObjectAnimator.REVERSE
-            repeatCount = ObjectAnimator.INFINITE
-        }
-
-        val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1f, 1.5f, 1f).apply {
-            duration = (1000..2000).random().toLong()
-            repeatMode = ObjectAnimator.REVERSE
-            repeatCount = ObjectAnimator.INFINITE
-        }
-
-        imageView.startAnimation(fadeInOut)
-        scaleX.start()
-        scaleY.start()
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .commit()
     }
 }

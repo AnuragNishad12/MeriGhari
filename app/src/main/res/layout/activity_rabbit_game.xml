@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/backgroundforgamerabbit"
+    android:padding="16dp">
+
+    <!-- Score Text -->
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/adlam_display"
+        android:gravity="center"
+        android:text="Score 20n point to Stop the Alarm :)"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/purple_gradient"
+        android:fontFamily="@font/abeezee"
+        android:padding="5dp"
+        android:text="Score: 0"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <!-- 2x3 Grid for the Holes -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#66FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Six Holes with Rabbit Placeholder -->
+                <!-- Hole 1 -->
+                <FrameLayout
+                    android:id="@+id/hole1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/holes" />
+
+                    <ImageView
+                        android:id="@+id/rabbit1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rabbitbaby"
+                        android:translationY="-15dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <!-- Hole 2 - fixed ID -->
+                <FrameLayout
+                    android:id="@+id/hole2"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/holes" />
+
+                    <ImageView
+                        android:id="@+id/rabbit2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rabbitbaby"
+                        android:translationY="-15dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <!-- Hole 3 -->
+                <FrameLayout
+                    android:id="@+id/hole3"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/holes" />
+
+                    <ImageView
+                        android:id="@+id/rabbit3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rabbitbaby"
+                        android:translationY="-15dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <!-- Hole 4 -->
+                <FrameLayout
+                    android:id="@+id/hole4"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/holes" />
+
+                    <ImageView
+                        android:id="@+id/rabbit4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rabbitbaby"
+                        android:translationY="-15dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <!-- Hole 5 -->
+                <FrameLayout
+                    android:id="@+id/hole5"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/holes" />
+
+                    <ImageView
+                        android:id="@+id/rabbit5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rabbitbaby"
+                        android:translationY="-15dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <!-- Hole 6 -->
+                <FrameLayout
+                    android:id="@+id/hole6"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/holes" />
+
+                    <ImageView
+                        android:id="@+id/rabbit6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rabbitbaby"
+                        android:translationY="-15dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+            </GridLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

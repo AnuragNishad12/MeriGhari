@@ -2,5 +2,7 @@
     <string name="app_name">MeriGhari</string>
     <string name="rupee">₹49/-</string>
     <string name="rupee2">₹699/-</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

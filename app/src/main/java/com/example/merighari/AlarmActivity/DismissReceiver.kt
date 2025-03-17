@@ -5,8 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.merighari.Pages.GameActivity
-import com.example.merighari.Pages.GeneralQuestion
+import com.example.merighari.Pages.Games.GameTypes
 import com.example.merighari.Pages.PuzzleActivity
 import com.example.merighari.Pages.QuestionTypes
 
@@ -32,7 +31,7 @@ class DismissReceiver : BroadcastReceiver() {
 
         val activityIntent = when (questionType) {
             "generalQuestion" -> Intent(context, QuestionTypes::class.java)
-            "gameType" -> Intent(context, GameActivity::class.java)
+            "gameType" -> Intent(context, GameTypes::class.java)
             "puzzleType" -> Intent(context, PuzzleActivity::class.java)
             else -> null
         }
