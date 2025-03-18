@@ -1,14 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ShopsFragment">
+    android:background="#e5e4e0"
+    tools:context=".Pages.Shops.ShopsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/agbalumo"
+        android:text="Explore"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/textView23">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="10dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:id="@+id/view8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#75000000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView18"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/tshirt"
+                            android:tint="#FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/alata"
+                    android:gravity="center"
+                    android:text=" Nightwear & Comfort Clothing" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="10dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:id="@+id/view8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#75000000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView18"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/tshirt"
+                            android:tint="#FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/alata"
+                    android:gravity="center"
+                    android:text="Sleep & Relaxation Products" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="10dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:id="@+id/view8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#75000000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView18"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/tshirt"
+                            android:tint="#FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/alata"
+                    android:gravity="center"
+                    android:text="Night Lighting" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="10dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:id="@+id/view8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#75000000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView18"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/tshirt"
+                            android:tint="#FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/alata"
+                    android:gravity="center"
+                    android:text="Self-Care & Beauty" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

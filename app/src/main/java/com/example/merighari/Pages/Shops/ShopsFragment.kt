@@ -1,4 +1,4 @@
-package com.example.merighari.Fragments
+package com.example.merighari.Pages.Shops
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
