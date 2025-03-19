@@ -7,9 +7,8 @@
     android:background="#e5e4e0"
     tools:context=".Pages.Shops.ShopsFragment">
 
-
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -23,26 +22,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <HorizontalScrollView
+        android:id="@+id/categoryScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="10dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        app:layout_constraintTop_toBottomOf="@+id/textView23">
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_margin="10dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="10dp">
 
+            <!-- Category 1 -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -55,17 +58,13 @@
                         android:layout_height="match_parent">
 
                         <View
-                            android:id="@+id/view8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#75000000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:id="@+id/viewCategory1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#75000000" />
 
                         <ImageView
-                            android:id="@+id/imageView18"
+                            android:id="@+id/imageCategory1"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:scaleType="centerCrop"
@@ -79,18 +78,20 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/textCategory1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/alata"
                     android:gravity="center"
-                    android:text=" Nightwear & Comfort Clothing" />
+                    android:text="Nightwear\n &amp; Comfort Clothing" />
             </LinearLayout>
 
+            <!-- Category 2 -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -103,21 +104,17 @@
                         android:layout_height="match_parent">
 
                         <View
-                            android:id="@+id/view8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#75000000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:id="@+id/viewCategory2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#75000000" />
 
                         <ImageView
-                            android:id="@+id/imageView18"
+                            android:id="@+id/imageCategory2"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/tshirt"
+                            android:src="@drawable/relaxtionbags"
                             android:tint="#FFFFFF"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -127,18 +124,20 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/textCategory2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/alata"
                     android:gravity="center"
-                    android:text="Sleep & Relaxation Products" />
+                    android:text="Sleep &amp; \nRelaxation Products" />
             </LinearLayout>
 
+            <!-- Category 3 -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -151,21 +150,17 @@
                         android:layout_height="match_parent">
 
                         <View
-                            android:id="@+id/view8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#75000000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:id="@+id/viewCategory3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#75000000" />
 
                         <ImageView
-                            android:id="@+id/imageView18"
+                            android:id="@+id/imageCategory3"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/tshirt"
+                            android:src="@drawable/selfcare"
                             android:tint="#FFFFFF"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -175,18 +170,20 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/textCategory3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/alata"
                     android:gravity="center"
-                    android:text="Night Lighting" />
+                    android:text="Night-Time Self-Care \n&amp;Beauty" />
             </LinearLayout>
 
+            <!-- Category 4 -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -199,21 +196,17 @@
                         android:layout_height="match_parent">
 
                         <View
-                            android:id="@+id/view8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#75000000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:id="@+id/viewCategory4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#75000000" />
 
                         <ImageView
-                            android:id="@+id/imageView18"
+                            android:id="@+id/imageCategory4"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/tshirt"
+                            android:src="@drawable/nightlighting"
                             android:tint="#FFFFFF"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -223,14 +216,27 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/textCategory4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/alata"
                     android:gravity="center"
-                    android:text="Self-Care & Beauty" />
+                    android:text="Night Lighting\n &amp; Ambience" />
             </LinearLayout>
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <include
+        android:id="@+id/overlayLayout"
+        layout="@layout/night_wear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/categoryScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
