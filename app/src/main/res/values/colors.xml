@@ -10,4 +10,7 @@
     <color name="purple">#564691</color>
     <color name="darkpurple">#564691</color>
     <color name="transparent">#01FFFFFF</color>
+    <color name="buttonBackground">#FFFFFF</color>
+    <color name="buttonBorder">#E0E0E0</color>
+    <color name="buttonTextColor">#212121</color>
 </resources>

@@ -3,6 +3,12 @@
     <string name="rupee">₹49/-</string>
     <string name="rupee2">₹699/-</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="player_turn">Player %1$s\'s Turn</string>
+    <string name="player_wins">Player %1$s Wins!</string>
+    <string name="game_tie">It\'s a Tie!</string>
+    <string name="score_format">X: %1$d | O: %2$d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 
 </resources>
