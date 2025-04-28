@@ -23,11 +23,7 @@
         <activity
             android:name=".Pages.Games.TicTacToe.TicTacToe"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Pages.Games.GameTypes"
@@ -74,7 +70,11 @@
         <activity
             android:name=".Pages.LandingPage"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>

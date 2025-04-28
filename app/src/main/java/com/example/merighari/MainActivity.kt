@@ -23,13 +23,13 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Set default fragment
+
         loadFragment(AlarmFragment())
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_set_alarm -> loadFragment(AlarmFragment())
-                R.id.nav_shops -> loadFragment(ShopsFragment())
+//                R.id.nav_shops -> loadFragment(ShopsFragment())
             }
             true
         }

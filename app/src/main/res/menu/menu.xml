@@ -5,8 +5,8 @@
         android:icon="@drawable/clock"
         android:title="Set Alarm" />
 
-    <item
-        android:id="@+id/nav_shops"
-        android:icon="@drawable/tr"
-        android:title="Shops" />
+<!--    <item-->
+<!--        android:id="@+id/nav_shops"-->
+<!--        android:icon="@drawable/tr"-->
+<!--        android:title="Shops" />-->
 </menu>
